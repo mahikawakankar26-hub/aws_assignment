@@ -139,4 +139,56 @@ git push `
 3. Click on **Policies → Create Policy**  
 4. Select the **JSON** tab  
 5. Paste the policy
+---
+##  Why S3 is Suitable for this Use Case
 
+Amazon S3 is ideal for hosting static websites due to the following reasons:
+
+- **Cost-Effective**  
+  S3 offers very low storage and data transfer costs, making it suitable for lightweight websites.
+
+- **Highly Scalable**  
+  It can handle large numbers of requests without any manual scaling.
+
+- **High Availability and Durability**  
+  S3 ensures data is replicated across multiple locations, providing reliability.
+
+- **No Server Management**  
+  Since it is a serverless service, there is no need to manage infrastructure.
+
+- **Built-in Static Website Hosting**  
+  S3 allows direct hosting of HTML, CSS, and JavaScript files with a public URL.
+
+---
+
+##  How Access was Configured
+
+Access to the website was configured using the following steps:
+
+1. **Created an S3 Bucket**
+   - A bucket was created to store website files.
+
+2. **Uploaded Website Files**
+   - HTML and CSS files (Home, About, Contact pages) were uploaded.
+
+3. **Enabled Static Website Hosting**
+   - Configured `index.html` as the main entry point.
+
+4. **Disabled Block Public Access**
+   - Allowed public access for the bucket to serve content.
+
+5. **Added Bucket Policy**
+   - A policy was added to allow public read access:
+
+   ```json
+   {
+     "Version": "2012-10-17",
+     "Statement": [
+       {
+         "Effect": "Allow",
+         "Principal": "*",
+         "Action": "s3:GetObject",
+         "Resource": "arn:aws:s3:::your-bucket-name/*"
+       }
+     ]
+   }
